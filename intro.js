@@ -43,4 +43,28 @@ class Clock {
   }
 }
 
-const clock = new Clock();
+// const clock = new Clock();
+
+const readline = require('readline');
+
+const reader = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+function addNumbers(sum, numsLeft, cb) {
+
+  if (numsLeft === 0) {
+    cb(sum);
+    reader.close();
+  } else {
+    reader.question('Give me a number, punk', number => {
+      number = parseInt(number);
+      sum += number;
+      console.log(`The sum is: ${sum}`);
+      addNumbers(sum, --numsLeft, cb);
+    });
+  }
+}
+
+addNumbers(0, 3, sum => console.log(`Total Sum: ${sum}`));
